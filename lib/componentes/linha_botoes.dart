@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
- import 'botao.dart';
+import 'botao.dart';
  class LinhaBotoes extends StatelessWidget {
   final List<Botao> botoes;
   const LinhaBotoes(this.botoes, {super.key});
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
               lista.isEmpty
                   ? lista.add(elemento)
                   : lista.addAll(
-                    [const SizedBox(width: 2), elemento]
+                    [const SizedBox(width: 8 ), elemento]
                   );
               return lista;
             }),
