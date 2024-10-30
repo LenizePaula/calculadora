@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
- class Visor extends StatelessWidget {
+class Visor extends StatelessWidget {
   final String texto;
   const Visor(this.texto, {super.key});
   
@@ -10,15 +10,15 @@ import 'package:auto_size_text/auto_size_text.dart';
     return Expanded(
       flex: 1, // ocupar toda a altura da tela
       child: Container(
-        color: const Color.fromRGBO(48, 48, 48, 1),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 79, 77, 77), // cor de fundo
+          borderRadius: BorderRadius.circular(10), // bordas arredondadas
+        ),
         child: Column(
-     // mover texto para baixo
           mainAxisAlignment: MainAxisAlignment.end,
-          // esticar largura coluna 
-    crossAxisAlignment: CrossAxisAlignment.stretch, 
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-     // aumentar distancia do texto
               padding: const EdgeInsets.all(10.0), 
               child: AutoSizeText(
                 texto,
