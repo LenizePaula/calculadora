@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Botao extends StatelessWidget {
-  static const corPadrao = Color.fromRGBO(112, 112, 112, 1);
-  static const corOperacao = Color.fromRGBO(156, 220, 254, 1);
+  static const corPadrao = Colors.white;
+  static const corOperacao = Colors.black;
 
   final String texto;
   final bool duplo;
   final Color cor;
   final void Function(String) callback;
+
   const Botao({
     super.key,
     required this.texto,
@@ -27,6 +28,8 @@ class Botao extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Define a cor do texto com base na cor de fundo do botão
+    final textColor = cor == corOperacao ? Colors.white : Colors.black;
     return Expanded(
         flex: duplo ? 2 : 1,
         child: CupertinoButton(
@@ -34,8 +37,8 @@ class Botao extends StatelessWidget {
             onPressed: () => callback(texto),
             child: Text(
               texto,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: textColor,
                 fontSize: 32,
                 fontWeight: FontWeight.w100,
               ),
