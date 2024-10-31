@@ -23,12 +23,20 @@ class _CalculadoraState extends State<Calculadora> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
+        color: const Color.fromARGB(255, 243, 239, 239), 
         child: Column(
           children: <Widget>[
             Visor(memoria.valorNoVisor),
-            const SizedBox(height: 2),
-            Teclado(_pressionado),
+            const SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 79, 77, 77), // cor de fundo
+                borderRadius: BorderRadius.circular(20), // bordas arredondadas
+              ),
+              padding: const EdgeInsets.all(15.0), // Opcional: adicione padding se necessário
+              child: Teclado(_pressionado), // Teclado fica dentro deste Container
+            )
           ],
         ),),);
   }

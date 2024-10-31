@@ -1,5 +1,7 @@
+import 'dart:math'; 
+
 class Memoria {
-  static const operacoes = ['%', '/', '*', '-', '+', '='];
+  static const operacoes = ['%', '/', '*', '-', '+', '=', '^', '!'];
 
   final _buffer = [0.0, '', 0.0];
   bool _ehPrimeiroNumero = true;
@@ -19,9 +21,9 @@ class Memoria {
 
   _estaSubstituindoOperacao(String comando) {
     return operacoes.contains(_ultimoComando) &&
-      operacoes.contains(comando) &&
-      _ultimoComando != '=' &&
-      comando != '=';
+        operacoes.contains(comando) &&
+        _ultimoComando != '=' &&
+        comando != '=';
   }
 
   _limpar() {
@@ -32,27 +34,26 @@ class Memoria {
     _ultimoComando = '';
   }
 
-   _setOperacao(String novaOperacao) {
- bool ehSinalDeIgual = novaOperacao == '=';
- if (_ehPrimeiroNumero) {
- if (!ehSinalDeIgual) {
- _ehPrimeiroNumero = false;
- _buffer[1] = novaOperacao;
+  _setOperacao(String novaOperacao) {
+    bool ehSinalDeIgual = novaOperacao == '=';
+    if (_ehPrimeiroNumero) {
+      if (!ehSinalDeIgual) {
+        _ehPrimeiroNumero = false;
+        _buffer[1] = novaOperacao;
       }
- _limparVisor = true;
-    } 
-else {
- _buffer[0] = _computa();
- _buffer[1] = ehSinalDeIgual ? '' : novaOperacao;
- _buffer[2] = 0.0;
- _valor = _buffer[0].toString();
- _valor = _valor.endsWith('.0') ? _valor.split('.')[0] : _valor;
- _ehPrimeiroNumero = ehSinalDeIgual;
- _limparVisor = !ehSinalDeIgual;
+      _limparVisor = true;
+    } else {
+      _buffer[0] = _computa();
+      _buffer[1] = ehSinalDeIgual ? '' : novaOperacao;
+      _buffer[2] = 0.0;
+      _valor = _buffer[0].toString();
+      _valor = _valor.endsWith('.0') ? _valor.split('.')[0] : _valor;
+      _ehPrimeiroNumero = ehSinalDeIgual;
+      _limparVisor = !ehSinalDeIgual;
     }
   }
 
-   _computa() {
+  _computa() {
     final primeiroNumero = _buffer[0] as double;
     final segundoNumero = _buffer[2] as double;
     switch (_buffer[1]) {
@@ -66,12 +67,16 @@ else {
         return primeiroNumero - segundoNumero;
       case '+':
         return primeiroNumero + segundoNumero;
+      case '^': // Potenciação
+        return pow(primeiroNumero, segundoNumero); // Uso correto do pow
+      case '!': // Fatorial
+        return _fatorial(primeiroNumero.toInt());
       default:
         return primeiroNumero;
     }
   }
 
-   _adicionarDigito(String digito) {
+  _adicionarDigito(String digito) {
     final ehPonto = digito == '.';
     final deveLimparValor = (_valor == '0' && !ehPonto) || _limparVisor;
     if (ehPonto && _valor.contains('.') && !deveLimparValor) {
@@ -98,4 +103,10 @@ else {
     }
     _ultimoComando = comando;
   }
- }
+
+  // Função para calcular o fatorial
+  int _fatorial(int n) {
+    if (n < 0) return 0; // O fatorial não é definido para números negativos
+    return n <= 1 ? 1 : n * _fatorial(n - 1); // Chamada recursiva
+  }
+}

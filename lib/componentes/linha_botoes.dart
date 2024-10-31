@@ -14,7 +14,7 @@ import 'botao.dart';
               lista.isEmpty
                   ? lista.add(elemento)
                   : lista.addAll(
-                    [const SizedBox(width: 8 ), elemento]
+                    [const SizedBox(width: 7 ), elemento]
                   );
               return lista;
             }),
