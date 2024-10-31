@@ -68,7 +68,7 @@ class Memoria {
       case '+':
         return primeiroNumero + segundoNumero;
       case '^': // Potenciação
-        return pow(primeiroNumero, segundoNumero); // Uso correto do pow
+        return pow(primeiroNumero, segundoNumero);
       case '!': // Fatorial
         return _fatorial(primeiroNumero.toInt());
       default:
